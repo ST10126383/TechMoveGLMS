@@ -1,0 +1,90 @@
+﻿@model TechMoveGLMS.Models.Client
+
+@{
+    ViewData["Title"] = "Edit Client";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-end mb-3">
+                <div>
+                    <h2 class="fw-bold text-dark mb-0">Edit Client</h2>
+                    <p class="text-muted mb-0">Modify details for <span class="text-primary fw-semibold">@Model.Name</span></p>
+                </div>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row g-4">
+                            <!-- Basic Info Section -->
+                            <div class="col-12">
+                                <label asp-for="Name" class="form-label fw-bold"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                                    <input asp-for="Name" class="form-control form-control-lg" placeholder="Client Name" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Contact Info Section -->
+                            <div class="col-md-6">
+                                <label asp-for="ContactEmail" class="form-label fw-bold"></label>
+                                <input asp-for="ContactEmail" class="form-control" placeholder="email@domain.com" />
+                                <span asp-validation-for="ContactEmail" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="ContactPhone" class="form-label fw-bold"></label>
+                                <input asp-for="ContactPhone" class="form-control" placeholder="Phone Number" />
+                                <span asp-validation-for="ContactPhone" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Regional Section -->
+                            <div class="col-md-12">
+                                <label asp-for="Region" class="form-label fw-bold"></label>
+                                <select asp-for="Region" class="form-select">
+                                    <option value="@Model.Region">@Model.Region (Current)</option>
+                                    <option value="North America">North America</option>
+                                    <option value="Europe">Europe</option>
+                                    <option value="Asia Pacific">Asia Pacific</option>
+                                    <option value="LATAM">LATAM</option>
+                                </select>
+                                <span asp-validation-for="Region" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-action="Index" class="btn btn-light px-4">Cancel</a>
+                            <button type="submit" class="btn btn-success px-5 shadow-sm">
+                                <i class="bi bi-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <small class="text-muted italic">Editing Record ID: @Model.Id</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

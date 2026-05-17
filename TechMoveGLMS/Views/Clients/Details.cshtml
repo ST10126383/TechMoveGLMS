@@ -1,0 +1,86 @@
+﻿@model TechMoveGLMS.Models.Client
+
+@{
+    ViewData["Title"] = "Client Details";
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb / Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Clients</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm border-0">
+                <!-- Header with Quick Edit -->
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-primary">
+                        <i class="bi bi-info-circle me-2"></i>Client Profile
+                    </h5>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Profile
+                    </a>
+                </div>
+
+                <div class="card-body p-0">
+                    <!-- Identity Section -->
+                    <div class="p-4 border-bottom bg-light">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                @Model.Name.Substring(0, 1).ToUpper()
+                            </div>
+                            <div>
+                                <h3 class="mb-0 fw-bold">@Html.DisplayFor(model => model.Name)</h3>
+                                <span class="badge bg-secondary">@Html.DisplayFor(model => model.Region)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details List -->
+                    <div class="p-4">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4 text-muted mb-3">
+                                <i class="bi bi-envelope me-2"></i>@Html.DisplayNameFor(model => model.ContactEmail)
+                            </dt>
+                            <dd class="col-sm-8 mb-3">
+                                <a href="mailto:@Model.ContactEmail" class="text-decoration-none border-bottom">
+                                    @Html.DisplayFor(model => model.ContactEmail)
+                                </a>
+                            </dd>
+
+                            <dt class="col-sm-4 text-muted mb-3">
+                                <i class="bi bi-telephone me-2"></i>@Html.DisplayNameFor(model => model.ContactPhone)
+                            </dt>
+                            <dd class="col-sm-8 mb-3 text-dark">
+                                @Html.DisplayFor(model => model.ContactPhone)
+                            </dd>
+
+                            <dt class="col-sm-4 text-muted mb-3">
+                                <i class="bi bi-geo-alt me-2"></i>@Html.DisplayNameFor(model => model.Region)
+                            </dt>
+                            <dd class="col-sm-8 mb-3">
+                                @Html.DisplayFor(model => model.Region)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="card-footer bg-white py-3">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-link text-muted text-decoration-none px-0">
+                            <i class="bi bi-chevron-left"></i> Return to Directory
+                        </a>
+                        <div class="text-muted small align-self-center">
+                            Last Updated: @DateTime.Now.ToString("MMM dd, yyyy")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<TechMoveGLMS.Models.ContractFile>
+
+@{
+    ViewData["Title"] = "Document Repository";
+}
+
+<div class="container py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-0">Contract Documents</h2>
+            <p class="text-muted small mb-0">Access and manage file attachments for all active contracts.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">
+            <i class="bi bi-file-earmark-plus me-1"></i> Upload Document
+        </a>
+    </div>
+
+    <!-- Main Table Card -->
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">@Html.DisplayNameFor(model => model.FileName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Contract)</th>
+                        <th>@Html.DisplayNameFor(model => model.UploadedDate)</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="p-2 bg-light rounded text-primary me-3">
+                                        <i class="bi bi-file-earmark-text fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <span class="d-block fw-bold text-dark">@Html.DisplayFor(modelItem => item.FileName)</span>
+                                        <small class="text-muted font-monospace" style="font-size: 0.75rem;">@Html.DisplayFor(modelItem => item.FilePath)</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">
+                                    <i class="bi bi-link-45deg"></i> @Html.DisplayFor(modelItem => item.Contract.ServiceLevel)
+                                </span>
+                            </td>
+                            <td>
+                                <div class="text-muted small">
+                                    <i class="bi bi-calendar3 me-1"></i> @item.UploadedDate.ToString("MMM dd, yyyy")
+                                </div>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group btn-group-sm shadow-sm" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-white border" title="View Details">
+                                        <i class="bi bi-eye text-primary"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-white border" title="Edit Properties">
+                                        <i class="bi bi-pencil text-secondary"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-white border text-danger" title="Delete File">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="card-body text-center py-5">
+                <i class="bi bi-folder-x text-muted mb-3" style="font-size: 3rem;"></i>
+                <h5 class="text-muted">No documents found</h5>
+                <p class="small text-secondary">Upload your first contract file to get started.</p>
+            </div>
+        }
+    </div>
+</div>

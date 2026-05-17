@@ -1,0 +1,59 @@
+﻿@model TechMoveGLMS.Models.Client
+
+@{
+    ViewData["Title"] = "Delete Client";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Warning Header -->
+            <div class="text-center mb-4">
+                <div class="display-4 text-danger mb-2">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                </div>
+                <h2 class="fw-bold">Confirm Deletion</h2>
+                <p class="text-muted">Are you sure you want to permanently remove this client? This action cannot be undone.</p>
+            </div>
+
+            <!-- Content Card -->
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title mb-0">Client Details</h5>
+                </div>
+                <div class="card-body p-4">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted fw-normal">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4 text-muted fw-normal">@Html.DisplayNameFor(model => model.ContactEmail)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ContactEmail)</dd>
+
+                        <dt class="col-sm-4 text-muted fw-normal">@Html.DisplayNameFor(model => model.ContactPhone)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ContactPhone)</dd>
+
+                        <dt class="col-sm-4 text-muted fw-normal">@Html.DisplayNameFor(model => model.Region)</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-light text-dark border">@Html.DisplayFor(model => model.Region)</span>
+                        </dd>
+                    </dl>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="card-footer bg-light p-3">
+                    <form asp-action="Delete" class="d-flex justify-content-between align-items-center">
+                        <input type="hidden" asp-for="Id" />
+
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Cancel, Keep Client
+                        </a>
+
+                        <button type="submit" class="btn btn-danger px-4 shadow-sm">
+                            <i class="bi bi-trash3 me-1"></i> Confirm Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+﻿@model TechMoveGLMS.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Update Service Request";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1">
+                            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Service Requests</a></li>
+                            <li class="breadcrumb-item active">Edit Request #@Model.Id</li>
+                        </ol>
+                    </nav>
+                    <h2 class="fw-bold mb-0 text-dark">Update Request</h2>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-light text-muted border py-2">ID: @Model.Id</span>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="card-title mb-0"><i class="bi bi-pencil-square me-2"></i>Modify Request Details</h5>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <!-- Core Association -->
+                        <div class="mb-4">
+                            <label asp-for="ContractId" class="form-label fw-bold">Linked Contract</label>
+                            <select asp-for="ContractId" class="form-select border-primary-subtle shadow-sm" asp-items="ViewBag.ContractId"></select>
+                            <span asp-validation-for="ContractId" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Full Width Description -->
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label fw-bold"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3">@Model.Description</textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Financials Row -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="CostUSD" class="form-label fw-bold">Cost (USD)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-success-subtle text-success fw-bold">$</span>
+                                    <input asp-for="CostUSD" class="form-control fw-semibold" />
+                                </div>
+                                <span asp-validation-for="CostUSD" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="CostZAR" class="form-label fw-bold">Cost (ZAR)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-primary-subtle text-primary fw-bold">R</span>
+                                    <input asp-for="CostZAR" class="form-control fw-semibold" />
+                                </div>
+                                <span asp-validation-for="CostZAR" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Status & Timeline Row -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Status" class="form-label fw-bold"></label>
+                                <select asp-for="Status" class="form-select">
+                                    <option value="New">New</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="CreatedDate" class="form-label fw-bold"></label>
+                                <input asp-for="CreatedDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="CreatedDate" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 text-muted opacity-25" />
+
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-link text-secondary text-decoration-none px-0">
+                                <i class="bi bi-x-circle me-1"></i> Discard Changes
+                            </a>
+                            <div>
+                                <button type="submit" class="btn btn-primary px-5 shadow">
+                                    <i class="bi bi-save me-1"></i> Save Updates
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-muted small">
+                    <i class="bi bi-info-circle me-1"></i> Updating costs will reflect immediately in contract billing reports.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

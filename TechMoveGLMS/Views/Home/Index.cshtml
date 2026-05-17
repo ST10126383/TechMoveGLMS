@@ -1,0 +1,152 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "TechMove Dashboard";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold text-dark">TechMove Dashboard</h1>
+            <p class="text-muted">Welcome back! Here's an overview of your business.</p>
+        </div>
+        <a asp-controller="Contracts" asp-action="Create" class="btn btn-primary px-4">
+            <i class="bi bi-plus-circle me-2"></i>New Contract
+        </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-muted small">TOTAL CONTRACTS</h6>
+                            <h2 class="fw-bold mb-0 text-primary">@(ViewBag.TotalContracts ?? 0)</h2>
+                        </div>
+                        <i class="bi bi-file-text display-4 text-primary opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-muted small">SERVICE REQUESTS</h6>
+                            <h2 class="fw-bold mb-0 text-success">@(ViewBag.TotalRequests ?? 0)</h2>
+                        </div>
+                        <i class="bi bi-tools display-4 text-success opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-muted small">PENDING REQUESTS</h6>
+                            <h2 class="fw-bold mb-0 text-warning">@(ViewBag.PendingRequests ?? 0)</h2>
+                        </div>
+                        <i class="bi bi-hourglass display-4 text-warning opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-muted small">TOTAL REVENUE (USD)</h6>
+                            <h2 class="fw-bold mb-0 text-success">$@(ViewBag.TotalRevenue?.ToString("N2") ?? "0.00")</h2>
+                        </div>
+                        <i class="bi bi-currency-dollar display-4 text-success opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Contracts -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Recent Contracts</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentContracts != null && ((List<TechMoveGLMS.Models.Contract>)ViewBag.RecentContracts).Any())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var contract in (List<TechMoveGLMS.Models.Contract>)ViewBag.RecentContracts)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@contract.Client?.Name</strong><br />
+                                        <small class="text-muted">@contract.ServiceLevel</small>
+                                    </div>
+                                    <div class="text-end">
+                                        @{
+                                            string statusClass = contract.Status == "Active" ? "bg-success" : "bg-warning";
+                                        }
+                                        <span class="badge @statusClass">@contract.Status</span><br />
+                                        <small>@contract.StartDate.ToShortDateString()</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-4">
+                            No contracts yet.
+                            <a asp-controller="Contracts" asp-action="Create">Create your first one</a>
+                        </p>
+                    }
+                </div>
+                <div class="card-footer bg-white">
+                    <a asp-controller="Contracts" asp-action="Index" class="btn btn-sm btn-outline-primary">View All Contracts →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Service Requests -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Recent Service Requests</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentRequests != null && ((List<TechMoveGLMS.Models.ServiceRequest>)ViewBag.RecentRequests).Any())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var req in (List<TechMoveGLMS.Models.ServiceRequest>)ViewBag.RecentRequests)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@req.Description.Substring(0, Math.Min(40, req.Description.Length))...</strong>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-info">R @req.CostZAR.ToString("N2")</span><br />
+                                        <small class="text-muted">@req.CreatedDate.ToShortDateString()</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-4">No service requests yet.</p>
+                    }
+                </div>
+                <div class="card-footer bg-white">
+                    <a asp-controller="ServiceRequests" asp-action="Index" class="btn btn-sm btn-outline-primary">View All Requests →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

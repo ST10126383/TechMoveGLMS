@@ -1,0 +1,175 @@
+﻿@model TechMoveGLMS.Models.Contract
+
+@{
+    ViewData["Title"] = "Contract Details";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Contract Details</h1>
+        <div>
+            <a asp-action="Index" class="btn btn-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Back to Contracts
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Edit Contract
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Main Contract Information -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Contract Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4 fw-bold">Contract ID</dt>
+                        <dd class="col-sm-8">@Model.Id</dd>
+
+                        <dt class="col-sm-4 fw-bold">Client</dt>
+                        <dd class="col-sm-8">
+                            <strong>@Model.Client?.Name</strong><br />
+                            <small class="text-muted">@Model.Client?.ContactEmail</small>
+                        </dd>
+
+                        <dt class="col-sm-4 fw-bold">Service Level</dt>
+                        <dd class="col-sm-8">@Model.ServiceLevel</dd>
+
+                        <dt class="col-sm-4 fw-bold">Start Date</dt>
+                        <dd class="col-sm-8">@Model.StartDate.ToLongDateString()</dd>
+
+                        <dt class="col-sm-4 fw-bold">End Date</dt>
+                        <dd class="col-sm-8">@Model.EndDate.ToLongDateString()</dd>
+
+                        <dt class="col-sm-4 fw-bold">Status</dt>
+                        <dd class="col-sm-8">
+                            @switch (Model.Status)
+                            {
+                                case "Active":
+                                    <span class="badge bg-success fs-6">@Model.Status</span>
+                                    break;
+                                case "Expired":
+                                    <span class="badge bg-danger fs-6">@Model.Status</span>
+                                    break;
+                                case "On Hold":
+                                    <span class="badge bg-warning text-dark fs-6">@Model.Status</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-secondary fs-6">@Model.Status</span>
+                                    break;
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats / Summary -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <h5 class="text-muted">Service Requests</h5>
+                    <h2 class="display-4 fw-bold text-primary">@Model.ServiceRequests?.Count ?? 0</h2>
+                    <p class="text-muted">Associated Requests</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Upload Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Signed Agreement Upload</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="contractId" value="@Model.Id" />
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-7">
+                        <label class="form-label">Select PDF File</label>
+                        <input type="file" name="file" accept=".pdf" class="form-control" required />
+                        <small class="text-muted">Only .pdf files are allowed</small>
+                    </div>
+                    <div class="col-md-5">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="bi bi-upload"></i> Upload Signed Agreement
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Uploaded Files -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Uploaded Documents (@(Model.Files?.Count ?? 0))</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Files != null && Model.Files.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Uploaded On</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var file in Model.Files.OrderByDescending(f => f.UploadedDate))
+                        {
+                            <tr>
+                                <td>@file.FileName</td>
+                                <td>@file.UploadedDate.ToString("dd MMM yyyy HH:mm")</td>
+                                <td class="text-end">
+                                    <a href="/@file.FilePath" class="btn btn-sm btn-primary" target="_blank">
+                                        <i class="bi bi-download"></i> Download
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-file-earmark-pdf display-4"></i>
+                    <p class="mt-3">No signed agreements uploaded yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Service Requests Section -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Service Requests</h5>
+            <a asp-action="Create" asp-controller="ServiceRequests" asp-route-contractId="@Model.Id"
+               class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-circle"></i> New Service Request
+            </a>
+        </div>
+        <div class="card-body">
+            @if (Model.ServiceRequests != null && Model.ServiceRequests.Any())
+            {
+                <!-- You can expand this later with a table -->
+                <p class="text-success">✅ This contract has active service requests.</p>
+            }
+            else
+            {
+                <p class="text-muted">No service requests have been created for this contract yet.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Optional: Confirmation for any dangerous actions (if needed later)
+    </script>
+}

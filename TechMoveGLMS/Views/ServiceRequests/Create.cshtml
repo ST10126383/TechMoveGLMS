@@ -1,0 +1,118 @@
+﻿@model TechMoveGLMS.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "New Service Request";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+
+            <div class="mb-4">
+                <h2 class="fw-bold text-dark">
+                    <i class="bi bi-tools me-2 text-primary"></i> Create Service Request
+                </h2>
+                <p class="text-muted">Log a new service task against an existing contract.</p>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <form asp-action="Create" id="serviceRequestForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <!-- Contract -->
+                        <div class="mb-4">
+                            <label asp-for="ContractId" class="form-label fw-bold">Associated Contract</label>
+                            <select asp-for="ContractId" class="form-select" asp-items="ViewBag.ContractId">
+                                <option value="">-- Select Contract --</option>
+                            </select>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label fw-bold">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Detail the service required..."></textarea>
+                        </div>
+
+                        <!-- Currency Conversion -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="CostUSD" class="form-label fw-bold">Cost (USD)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="CostUSD" id="usdAmount" class="form-control" step="0.01" placeholder="0.00" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Cost (ZAR) - Live Rate</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R</span>
+                                    <input id="zarAmount" class="form-control bg-light" readonly placeholder="0.00" />
+                                </div>
+                                <small id="rateInfo" class="text-muted"></small>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="mb-4">
+                            <label asp-for="Status" class="form-label fw-bold">Status</label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="bi bi-plus-circle me-2"></i> Create Service Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const usdInput = document.getElementById('usdAmount');
+        const zarOutput = document.getElementById('zarAmount');
+        const rateInfo = document.getElementById('rateInfo');
+
+        async function fetchExchangeRate(usd) {
+            if (usd <= 0) {
+                zarOutput.value = '';
+                return;
+            }
+
+            try {
+                // Free Exchange Rate API
+                const response = await fetch('https://v6.exchangerate-api.com/v6/1a2b3c4d5e6f/pair/USD/ZAR');
+                const data = await response.json();
+
+                if (data.conversion_rate) {
+                    const zar = (usd * data.conversion_rate).toFixed(2);
+                    zarOutput.value = zar;
+                    rateInfo.textContent = `Live Rate: 1 USD = ${data.conversion_rate.toFixed(2)} ZAR`;
+                }
+            } catch (error) {
+                // Fallback rate
+                const zar = (usd * 18.25).toFixed(2);
+                zarOutput.value = zar;
+                rateInfo.textContent = 'Using approximate rate (18.25)';
+            }
+        }
+
+        usdInput.addEventListener('input', function () {
+            const usd = parseFloat(this.value) || 0;
+            fetchExchangeRate(usd);
+        });
+    </script>
+}

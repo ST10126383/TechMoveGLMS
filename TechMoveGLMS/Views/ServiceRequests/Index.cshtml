@@ -1,0 +1,122 @@
+﻿@model IEnumerable<TechMoveGLMS.Models.ServiceRequest>
+
+@{
+    ViewData["Title"] = "Service Requests";
+}
+
+<div class="container py-4">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-0">Service Requests</h2>
+            <p class="text-muted small mb-0">Monitor and manage all client service tasks and billables.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm px-4">
+            <i class="bi bi-plus-lg me-1"></i> New Request
+        </a>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-primary text-white">
+                <div class="card-body py-3">
+                    <h6 class="small text-uppercase opacity-75 mb-1">TOTAL REQUESTS</h6>
+                    <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-white">
+                <div class="card-body py-3">
+                    <h6 class="small text-uppercase text-muted mb-1">PENDING TASKS</h6>
+                    <h3 class="fw-bold mb-0 text-warning">@Model.Count(x => x.Status != "Completed")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-white">
+                <div class="card-body py-3">
+                    <h6 class="small text-uppercase text-muted mb-1">REVENUE (USD)</h6>
+                    <h3 class="fw-bold mb-0 text-success">$@Model.Sum(x => x.CostUSD).ToString("N2")</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Table -->
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">Contract</th>
+                        <th style="width: 28%;">Description</th>
+                        <th>Cost (USD / ZAR)</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string badgeClass = item.Status switch
+                        {
+                            "Completed" => "bg-success",
+                            "In Progress" => "bg-primary",
+                            _ => "bg-warning text-dark"
+                        };
+
+                        <tr>
+                            <td class="ps-4">
+                                <strong>@(item.Contract?.ServiceLevel ?? "N/A")</strong>
+                                <small class="d-block text-muted">ID: #@item.ContractId</small>
+                            </td>
+                            <td>
+                                <div class="text-truncate" style="max-width: 280px;" title="@item.Description">
+                                    @item.Description
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold text-success">
+                                    $@item.CostUSD.ToString("N2")
+                                </div>
+                                <div class="text-primary fw-medium">
+                                    R @item.CostZAR.ToString("N2")
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge @badgeClass">@item.Status</span>
+                            </td>
+                            <td>
+                                <div>@item.CreatedDate.ToString("dd MMM yyyy")</div>
+                                <small class="text-muted">@item.CreatedDate.ToShortTimeString()</small>
+                            </td>
+                            <td class="text-end pe-4">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-1" title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning me-1" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Delete"
+                                   onclick="return confirm('Delete this service request?');">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-inbox display-4"></i>
+                <h5>No service requests yet</h5>
+            </div>
+        }
+    </div>
+</div>

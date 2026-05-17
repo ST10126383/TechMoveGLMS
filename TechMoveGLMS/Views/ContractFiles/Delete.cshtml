@@ -1,0 +1,61 @@
+﻿@model TechMoveGLMS.Models.ContractFile
+
+@{
+    ViewData["Title"] = "Delete File";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <!-- Warning Header -->
+            <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill fs-3 me-3 text-warning"></i>
+                <div>
+                    <h5 class="alert-heading fw-bold mb-1">Confirm File Removal</h5>
+                    <p class="mb-0 small">Are you sure you want to delete this record? This may prevent access to the document.</p>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <!-- File Icon Header -->
+                <div class="bg-danger p-4 text-center text-white">
+                    <i class="bi bi-file-earmark-x-fill display-4"></i>
+                    <h4 class="mt-2 mb-0">@Html.DisplayFor(model => model.FileName)</h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <h6 class="text-uppercase text-muted small fw-bold mb-3">File Association & Details</h6>
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted small">Linked Contract</dt>
+                        <dd class="col-sm-8 fw-semibold text-primary">
+                            <i class="bi bi-file-earmark-text me-1"></i> @Html.DisplayFor(model => model.Contract.ServiceLevel)
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted small">File Path</dt>
+                        <dd class="col-sm-8 text-break small text-muted"><code>@Html.DisplayFor(model => model.FilePath)</code></dd>
+
+                        <dt class="col-sm-4 text-muted small">Uploaded On</dt>
+                        <dd class="col-sm-8 small">@Html.DisplayFor(model => model.UploadedDate)</dd>
+                    </dl>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="card-footer bg-light border-0 p-3">
+                    <form asp-action="Delete" class="d-flex justify-content-between align-items-center">
+                        <input type="hidden" asp-for="Id" />
+
+                        <a asp-action="Index" class="btn btn-link text-decoration-none text-secondary px-0">
+                            <i class="bi bi-arrow-left"></i> Keep File
+                        </a>
+
+                        <button type="submit" class="btn btn-danger px-4 fw-bold shadow-sm">
+                            <i class="bi bi-trash3 me-1"></i> Delete Permanently
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

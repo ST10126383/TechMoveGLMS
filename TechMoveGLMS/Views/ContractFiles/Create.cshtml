@@ -1,0 +1,93 @@
+﻿@model TechMoveGLMS.Models.ContractFile
+
+@{
+    ViewData["Title"] = "Upload Contract File";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <!-- Header Section -->
+            <div class="mb-4 text-center">
+                <div class="bg-light d-inline-block p-3 rounded-circle mb-3">
+                    <i class="bi bi-file-earmark-arrow-up text-primary" style="font-size: 2rem;"></i>
+                </div>
+                <h2 class="fw-bold">Add Contract Document</h2>
+                <p class="text-muted">Associate a new document with an existing contract record.</p>
+            </div>
+
+            <div class="card shadow border-0">
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2" role="alert"></div>
+
+                        <!-- Contract Selection -->
+                        <div class="mb-4">
+                            <label asp-for="ContractId" class="form-label fw-bold">Target Contract</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="bi bi-briefcase"></i></span>
+                                <select asp-for="ContractId" class="form-select" asp-items="ViewBag.ContractId">
+                                    <option value="">-- Select a Contract --</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="ContractId" class="text-danger small"></span>
+                        </div>
+
+                        <hr class="my-4 opacity-25">
+
+                        <!-- File Details -->
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label asp-for="FileName" class="form-label fw-bold">Display Name</label>
+                                <input asp-for="FileName" class="form-control" placeholder="e.g. Service_Agreement_v1.pdf" />
+                                <span asp-validation-for="FileName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="FilePath" class="form-label fw-bold">Storage Path / URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light text-muted small">path/</span>
+                                    <input asp-for="FilePath" class="form-control" placeholder="uploads/contracts/2024/" />
+                                </div>
+                                <span asp-validation-for="FilePath" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="UploadedDate" class="form-label fw-bold">Upload Timestamp</label>
+                                <input asp-for="UploadedDate" type="datetime-local" class="form-control" />
+                                <span asp-validation-for="UploadedDate" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="mt-5 d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                <i class="bi bi-cloud-upload me-2"></i>Save File Record
+                            </button>
+                            <a asp-action="Index" class="btn btn-link text-secondary text-decoration-none">
+                                <i class="bi bi-arrow-left"></i> Cancel and Return
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Helpful Tip -->
+            <div class="mt-4 p-3 bg-light rounded-3 border">
+                <div class="d-flex">
+                    <i class="bi bi-info-circle-fill text-info me-3 mt-1"></i>
+                    <small class="text-muted">
+                        <strong>Note:</strong> Ensure the file path matches your secure storage configuration. Only authorized personnel can access these files later.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
