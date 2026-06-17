@@ -119,7 +119,6 @@ C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\ref
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.Features.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Embedded.dll
-C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.Http.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
@@ -712,9 +711,18 @@ C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\Tec
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.AssemblyInfoInputs.cache
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.AssemblyInfo.cs
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.csproj.CoreCompileInputs.cache
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.sourcelink.json
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMove.BEE2A2B0.Up2Date
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\refint\TechMoveGLMS.Test.dll
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.pdb
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\TechMoveGLMS.Test.genruntimeconfig.cache
 C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\obj\Debug\net9.0\ref\TechMoveGLMS.Test.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Microsoft.Extensions.Http.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Student\Desktop\MVC\TechMoveGLMS\TechMoveGLMS.Test\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

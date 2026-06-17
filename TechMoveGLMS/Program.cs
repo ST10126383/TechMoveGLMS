@@ -12,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddHttpClient<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IContractService, ContractService>();
+builder.Services.AddHttpClient<ApiService>();
 
 var app = builder.Build();
 

@@ -1,54 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Student\\Desktop\\MVC\\TechMoveGLMS\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{2B97F39A-FE57-4AC2-8F78-7CE48E49D5EF}|TechMoveGLMS.Test\\TechMoveGLMS.Test.csproj|c:\\users\\student\\desktop\\mvc\\techmoveglms\\techmoveglms.test\\services\\currencyservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B97F39A-FE57-4AC2-8F78-7CE48E49D5EF}|TechMoveGLMS.Test\\TechMoveGLMS.Test.csproj|solutionrelative:techmoveglms.test\\services\\currencyservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B97F39A-FE57-4AC2-8F78-7CE48E49D5EF}|TechMoveGLMS.Test\\TechMoveGLMS.Test.csproj|c:\\users\\student\\desktop\\mvc\\techmoveglms\\techmoveglms.test\\services\\filevalidationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B97F39A-FE57-4AC2-8F78-7CE48E49D5EF}|TechMoveGLMS.Test\\TechMoveGLMS.Test.csproj|solutionrelative:techmoveglms.test\\services\\filevalidationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CurrencyServiceTests.cs",
-              "DocumentMoniker": "C:\\Users\\Student\\Desktop\\MVC\\TechMoveGLMS\\TechMoveGLMS.Test\\Services\\CurrencyServiceTests.cs",
-              "RelativeDocumentMoniker": "TechMoveGLMS.Test\\Services\\CurrencyServiceTests.cs",
-              "ToolTip": "C:\\Users\\Student\\Desktop\\MVC\\TechMoveGLMS\\TechMoveGLMS.Test\\Services\\CurrencyServiceTests.cs",
-              "RelativeToolTip": "TechMoveGLMS.Test\\Services\\CurrencyServiceTests.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAUwBkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T12:21:15.229Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FileValidationTests.cs",
-              "DocumentMoniker": "C:\\Users\\Student\\Desktop\\MVC\\TechMoveGLMS\\TechMoveGLMS.Test\\Services\\FileValidationTests.cs",
-              "RelativeDocumentMoniker": "TechMoveGLMS.Test\\Services\\FileValidationTests.cs",
-              "ToolTip": "C:\\Users\\Student\\Desktop\\MVC\\TechMoveGLMS\\TechMoveGLMS.Test\\Services\\FileValidationTests.cs",
-              "RelativeToolTip": "TechMoveGLMS.Test\\Services\\FileValidationTests.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwBgAAABRAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T12:19:52.819Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }
