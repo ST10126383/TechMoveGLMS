@@ -20,14 +20,13 @@ namespace TechMoveGLMS.Controllers
             _apiService = apiService;
         }
 
-        // GET: Contracts
         public async Task<IActionResult> Index()
         {
             var contracts = await _apiService.GetAsync<List<Contract>>("/api/contracts");
             return View(contracts ?? new List<Contract>());
         }
 
-        // GET: Contracts/Details/5
+
         public async Task<IActionResult> Details(int id)
         {
             var contract = await _apiService.GetAsync<Contract>($"/api/contracts/{id}");
@@ -35,13 +34,11 @@ namespace TechMoveGLMS.Controllers
             return View(contract);
         }
 
-        // GET: Contracts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Contracts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Contract contract)
@@ -57,6 +54,7 @@ namespace TechMoveGLMS.Controllers
             }
             return View(contract);
         }
+
 
         // GET: Contracts/Edit/5
         public async Task<IActionResult> Edit(int id)

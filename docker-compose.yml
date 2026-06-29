@@ -1,18 +1,24 @@
+version: '3.8'
+
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: techmove-db
     environment:
       SA_PASSWORD: "YourStrong@Pass123"
       ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
     ports:
       - "1433:1433"
     volumes:
       - sql-data:/var/opt/mssql
+    restart: unless-stopped
 
   webapi:
     build:
       context: .
       dockerfile: TechMoveGLMS.WebAPI/Dockerfile
+    container_name: techmove-webapi
     ports:
       - "5000:80"
     environment:
@@ -20,17 +26,21 @@ services:
       - ConnectionStrings__DefaultConnection=Server=db;Database=TechMoveDB;User Id=sa;Password=YourStrong@Pass123;TrustServerCertificate=True;
     depends_on:
       - db
+    restart: unless-stopped
 
   web:
     build:
       context: .
       dockerfile: TechMoveGLMS/Dockerfile
+    container_name: techmove-web
     ports:
       - "5001:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ApiBaseUrl=http://webapi
     depends_on:
       - webapi
+    restart: unless-stopped
 
 volumes:
   sql-data:

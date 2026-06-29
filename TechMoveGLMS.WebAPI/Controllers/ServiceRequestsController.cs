@@ -25,24 +25,23 @@ namespace TechMoveGLMS.WebAPI.Controllers
                 .ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceRequest>> GetServiceRequest(int id)
-        {
-            var serviceRequest = await _context.ServiceRequests
-                .Include(sr => sr.Contract)
-                .FirstOrDefaultAsync(sr => sr.Id == id);
-
-            if (serviceRequest == null) return NotFound();
-            return serviceRequest;
-        }
-
         [HttpPost]
         public async Task<ActionResult<ServiceRequest>> PostServiceRequest(ServiceRequest serviceRequest)
         {
             _context.ServiceRequests.Add(serviceRequest);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction(nameof(GetServiceRequest), new { id = serviceRequest.Id }, serviceRequest);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceRequest>> GetServiceRequest(int id)
+        {
+            var request = await _context.ServiceRequests
+                .Include(sr => sr.Contract)
+                .FirstOrDefaultAsync(sr => sr.Id == id);
+
+            if (request == null) return NotFound();
+            return request;
         }
     }
 }

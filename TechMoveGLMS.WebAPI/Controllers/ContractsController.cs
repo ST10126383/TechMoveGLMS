@@ -21,6 +21,7 @@ namespace TechMoveGLMS.WebAPI.Controllers
         {
             return await _context.Contracts
                 .Include(c => c.Client)
+                .Include(c => c.Files)
                 .ToListAsync();
         }
 
@@ -29,6 +30,7 @@ namespace TechMoveGLMS.WebAPI.Controllers
         {
             var contract = await _context.Contracts
                 .Include(c => c.Client)
+                .Include(c => c.Files)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (contract == null) return NotFound();

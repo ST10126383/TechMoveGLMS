@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TechMoveGLMS.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e74e0ea718c574e25bfcaa8dd17b95022e76bf8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+447d9383cdd8efc223ba7de7c8948833e32b6a0c")]
 [assembly: System.Reflection.AssemblyProductAttribute("TechMoveGLMS.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TechMoveGLMS.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,41 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
-[Route("api/[controller]")]
-[ApiController]
-public class AuthController : ControllerBase
+namespace TechMoveGLMS.WebAPI.Controllers
 {
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginModel model)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        // Demo credentials
-        if (model.Username == "admin" && model.Password == "password")
+        private readonly IConfiguration _config;
+
+        public AuthController(IConfiguration config)
         {
-            var token = GenerateJwtToken(model.Username);
-            return Ok(new { token });
+            _config = config;
         }
-        return Unauthorized();
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginModel model)
+        {
+            // Demo credentials (In real app, check against DB)
+            if (model.Username == "admin" && model.Password == "password")
+            {
+                var token = GenerateJwtToken(model.Username);
+                return Ok(new { token });
+            }
+
+            return Unauthorized("Invalid credentials");
+        }
+
+        private string GenerateJwtToken(string username)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSuperSecretKeyForJwt12345!"));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: "TechMoveGLMS",
+                audience: "TechMoveGLMS",
+                claims: claims,
+                expires: DateTime.Now.AddHours(2),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 
-    private string GenerateJwtToken(string username)
+    public class LoginModel
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSuperSecretKey123!@#Min24CharsLong"));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: "TechMoveGLMS",
-            audience: "TechMoveGLMS",
-            expires: DateTime.Now.AddHours(8),
-            signingCredentials: credentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
-}
-
-public class LoginModel
-{
-    public string Username { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
 }

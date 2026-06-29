@@ -4,11 +4,13 @@
     "Projects": [
       {
         "Path": "TechMoveGLMS\\TechMoveGLMS.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "Container (Dockerfile)"
       },
       {
         "Path": "TechMoveGLMS.WebAPI\\TechMoveGLMS.WebAPI.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "Container (Dockerfile)"
       }
     ]
   }
