@@ -1,31 +1,35 @@
-# TechMove - Enterprise Service Management System
+# TechMoveGLMS
 
-A full-stack ASP.NET Core MVC application for managing clients, contracts, and service requests with currency conversion and file handling.
+A modern **ASP.NET Core MVC + Web API** system for managing client contracts and service requests.
 
 ## Features
 
-- **Client & Contract Management** with full CRUD
-- **Service Requests** with workflow validation
-- **Real-time Currency Conversion** (USD → ZAR) using external API
-- **PDF Signed Agreement Upload** with validation
-- **Search & Advanced Filtering** using LINQ
-- **Unit Testing** with xUnit
-- **Responsive UI** with Bootstrap 5
+### Backend (Web API)
+- RESTful API with proper CRUD operations
+- JWT Authentication
+- Swagger / OpenAPI documentation
+- Entity Framework Core with SQL Server
+
+### Frontend (MVC)
+- Clean, responsive UI using Bootstrap 5
+- File upload (PDF contracts)
+- Currency conversion (USD to ZAR) using external API
+- Search & Filter functionality
+
+### Architecture
+- **SOA** (Service-Oriented Architecture)
+- Decoupled MVC Frontend calling Web API
+- Docker Compose support (3 containers)
+- xUnit Integration & Unit Tests
 
 ## Technologies Used
 
-- ASP.NET Core MVC
-- Entity Framework Core + SQL Server
-- xUnit + Moq (Unit Testing)
-- HttpClient (External API)
-- Bootstrap 5 + Bootstrap Icons
+- **Backend**: ASP.NET Core Web API (.NET 8/9)
+- **Frontend**: ASP.NET Core MVC
+- **Database**: SQL Server
+- **ORM**: Entity Framework Core
+- **Testing**: xUnit + WebApplicationFactory
+- **Containerization**: Docker & Docker Compose
+- **Authentication**: JWT Bearer
 
-## Setup Instructions
-
-1. Clone the repository
-2. Update connection string in `appsettings.json`
-3. Run the following commands:
-
-```bash
-dotnet ef database update
-dotnet run
+## Project Structure
